@@ -1,14 +1,13 @@
-// 右クリックメニューを作成
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
         id: "openMyEditor",
-        title: "★マイエディタで開く",
-        contexts: ["selection", "image"] // テキスト選択または画像に表示
+        title: "Open in my editor!",
+        contexts: ["selection", "image"] //only on text and image
     });
     console.log("Context menu created");
 });
 
-// 右クリックメニューのクリックイベントを処理
+// right click event
 chrome.contextMenus.onClicked.addListener((info, tab) => {
     if (info.menuItemId === "openMyEditor") {
         if (info.selectionText) {
@@ -29,14 +28,14 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
     }
 });
 
-// テキストを保存する関数
+// saving text
 function saveTextToFile(text) {
     return new Promise((resolve, reject) => {
         try {
             const blob = new Blob([text], { type: "text/plain" });
             const fileName = `selected_text_${Date.now()}.txt`;
 
-            // FileReaderでBlobを読み込む
+            // read Blob
             const reader = new FileReader();
             reader.onloadend = () => {
                 const url = reader.result;
@@ -51,7 +50,6 @@ function saveTextToFile(text) {
                         if (chrome.runtime.lastError) {
                             reject(chrome.runtime.lastError.message);
                         } else {
-                            // ダウンロード完了を待つ
                             waitForDownloadCompletion(downloadId)
                                 .then((filePath) => resolve(filePath))
                                 .catch((error) => reject(error));
@@ -64,14 +62,13 @@ function saveTextToFile(text) {
                 reject("Failed to read the blob");
             };
 
-            reader.readAsDataURL(blob); // BlobをData URLとして読み込む
+            reader.readAsDataURL(blob);
         } catch (error) {
             reject(error.message);
         }
     });
 }
 
-// ダウンロード完了を待つ関数
 function waitForDownloadCompletion(downloadId) {
     return new Promise((resolve, reject) => {
         const interval = setInterval(() => {
@@ -80,13 +77,13 @@ function waitForDownloadCompletion(downloadId) {
                     const downloadItem = results[0];
                     if (downloadItem.state === "complete") {
                         clearInterval(interval);
-                        resolve(downloadItem.filename); // フルパスを返す
+                        resolve(downloadItem.filename); 
                     }
                 }
             });
-        }, 100); // 100msごとに確認
+        }, 100); // confirm every 100ms
 
-        // タイムアウト処理（例: 10秒）
+        // timeout（10s）
         setTimeout(() => {
             clearInterval(interval);
             reject("Download timed out");

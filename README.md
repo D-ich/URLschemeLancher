@@ -6,9 +6,9 @@ You can open file from your browser by as following.
 ```
 launchurl:exec=ImageEditor;file=https:example.com/image/imag.png
 ```
-"exec" is app name which configured on "config.json" 
-
-"file" is file path. It should be URL format started with "http://" "files://"
+* "exec" is app name which configured on "config.json" 
+chrome_extension
+* "file" is file path. It should be URL format started with "http://" "files://"
 
 If file is the URL, this program download it to temporary folder, and launch app with file name argument.
 
