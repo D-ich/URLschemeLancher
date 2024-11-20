@@ -1,0 +1,13 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\openfile]
+@="Open File Protocol"
+"URL Protocol"=""
+
+[HKEY_CLASSES_ROOT\openfile\shell]
+@="open"
+
+[HKEY_CLASSES_ROOT\openfile\shell\open]
+
+[HKEY_CLASSES_ROOT\openfile\shell\open\command]
+@="cmd /c start \"\" \"%1\""

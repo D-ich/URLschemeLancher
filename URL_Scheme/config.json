@@ -1,0 +1,12 @@
+{
+  "programs": [
+    {
+      "name": "ImageEditor",
+      "path": "mspaint"
+    },
+    {
+      "name": "TextEditor",
+      "path": "notepad.exe"
+    }
+  ]
+}

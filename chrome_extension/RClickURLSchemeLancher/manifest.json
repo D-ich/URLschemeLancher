@@ -1,0 +1,12 @@
+{
+    "manifest_version": 3,
+    "name": "URL Scheme Launcher",
+    "version": "1.0",
+    "description": "右クリックでカスタムURLスキーマを開く",
+    "permissions": ["contextMenus", "downloads"],
+    "host_permissions": ["<all_urls>"],
+    "background": {
+      "service_worker": "background.js"
+    }
+  }
+  
